@@ -1,38 +1,128 @@
-.App {
+/* App css */
+
+body{
+  background-color: rebeccapurple;
+  color: #ffffff;
+}
+
+.container > p {
   text-align: center;
+  margin: 50px;
+  font-size: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+  color: #ffffff;
+  
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.App{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid #ffffff;
+  box-shadow: 5px 5px 15px #3b3b3b;
+  border-radius: 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.add-item{
+  background-color: #ffffff;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 10px 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.add-item > input{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  padding-left: 10px;
+  width: 100%;
+  border: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.add-item > input:focus{
+  outline: none;
+}
+
+/* counter css */
+
+.counter{
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.stage-select{
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.stage{
+  margin: 0;
+  margin-left: 5px;
+  border: 3px solid #ffffff;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  padding: 10px;
+  transition: .4s ease;
+}
+
+.stage:hover{
+  background-color: rgb(207, 159, 255);
+  color: #ffffff;
+}
+
+
+
+/* todo css */
+
+.Todo{
+  display: flex;
+  padding: 30px 10px;
+  
+}
+
+.Todo-extra{
+  display: flex;
+  justify-content: space-between;
+  border-top: 3px solid #ffffff;
+  transition: .4s ease;
+}
+
+.Todo > p {
+  position: relative;
+  line-height: 32px;
+  padding-left: 10px;
+  margin: 0;
+  transition: .4s ease;
+}
+
+
+.Todo:first-child{
+  border: none;
+}
+
+.Todo-complete > p{
+  text-decoration: line-through;
+  opacity: .3;
+}
+
+.Todo-extra:hover{
+  padding: 10px 0px 10px 10px;
+}
+
+.hover-text{
+  visibility: visible;
+  transition: .3s ease;
+  margin: auto 20px;
+  opacity: .1;
+  
+}
+
+.hover-text:hover{
+  opacity: 1;
 }
