@@ -1,13 +1,17 @@
 import './App.css';
 import TodoItem from './component/todo'
 import StageChange from './component/stage'
-import { Component } from 'react';
+import React, { Component } from 'react';
 import plusIcon from './img/plus.svg'
+import removeIcon from './img/remove-black.svg'
 
 class App extends Component{
 
   constructor(){
     super();
+
+    this.inputElement = React.createRef()
+
     this.state = 
     {
       newItem: '',
@@ -18,9 +22,9 @@ class App extends Component{
       ],
       stageSelect: 'All',
       todo:[
-        {title: 'Go to bed', content: 'Prepare pillow', isComplete: true, },
-        {title: 'Go to toilet', content: 'Take paper', isComplete: false, },
-        {title: 'Go to school', content: 'Bring laptop', isComplete: false, }
+        {title: 'Go to bed', content: 'Prepare pillow', isComplete: true },
+        {title: 'Go to toilet', content: 'Take paper', isComplete: false },
+        {title: 'Go to school', content: 'Bring laptop', isComplete: false }
       ],
       listFilter: []
     };
@@ -30,10 +34,15 @@ class App extends Component{
     this.onChangeKey = this.onChangeKey.bind(this)
     this.onStageClick = this.onStageClick.bind(this)
     this.filterList = this.filterList.bind(this)
-    // this.itemMouse = this.itemMouse.bind(this)
+    this.removeText = this.removeText.bind(this)
         
   }
-  //Set complete taskthis.filterList(stageSelect)
+
+  componentDidMount(){
+    this.inputElement.current.focus()
+  }
+
+  //Set complete 
   itemOnClick(item, index){
     return () => {
       const isComplete = item.isComplete;
@@ -111,27 +120,14 @@ class App extends Component{
      
   }
 
-  // itemMouse(item, index){
-  //   return () => {
-  //     const isHover = item.isHover;
-  //     const { todo } = this.state;
-      
-  //     this.setState({
-  //       todo: [
-  //         ...todo.slice(0, index),
-  //         {
-  //           ...item,
-  //           isHover: !isHover
-  //         },
-  //         ...todo.slice(index + 1)
-  //       ]
-  //     })
-  //   }
-  // }
+  removeText(){
+    this.inputElement.current.value = ''
+  }
 
   render(){
     const { todo, newItem, stage, stageSelect } = this.state
     let plus = plusIcon
+    let remove = removeIcon
     // this.filterList(stageSelect)
     return(
       <div className='container'>
@@ -148,13 +144,17 @@ class App extends Component{
         </div>
         <div className='App'>
           
-          <div className='add-item'>
-            <img alt="Add Item" src={plus} width='32px' height='32px'/>
-            <input type="text"
-                    value={newItem}
-                    placeholder="Add new item"
-                    onChange={this.onChangeKey}
-                    onKeyUp={this.onKeyEnter}/>
+          <div className='add'>
+            <div className='add-item'>
+              <img alt="Add Item" src={plus} width='32px' height='32px'/>
+              <input type="text"
+                      value={newItem}
+                      placeholder="Add new item"
+                      onChange={this.onChangeKey}
+                      onKeyUp={this.onKeyEnter}
+                      ref={this.inputElement}/>
+            </div>
+            <img alt='remove' onClick={this.removeText} src={remove} width='32px' height='32px'/>
           </div>
           {
             todo.length && todo.map((item, index) => 

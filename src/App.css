@@ -28,7 +28,25 @@ body{
   border-radius: 5px;
 }
 
+.add{
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.add > img{
+  margin: auto 20px;
+  opacity: .1;
+  transition: .4s ease;
+}
+
+.add > img:hover{
+  opacity: 1;
+}
+
+
 .add-item{
+  width: 100%;
   background-color: #ffffff;
   display: flex;
   padding: 10px 10px;
