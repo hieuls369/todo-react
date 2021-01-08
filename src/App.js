@@ -26,7 +26,11 @@ class App extends Component{
         {title: 'Go to toilet', content: 'Take paper', isComplete: false },
         {title: 'Go to school', content: 'Bring laptop', isComplete: false }
       ],
-      listFilter: []
+      listFilter: [
+        {title: 'Go to bed', content: 'Prepare pillow', isComplete: true },
+        {title: 'Go to toilet', content: 'Take paper', isComplete: false },
+        {title: 'Go to school', content: 'Bring laptop', isComplete: false }
+      ]
     };
 
     this.itemOnClick = this.itemOnClick.bind(this)
@@ -37,7 +41,7 @@ class App extends Component{
     this.removeText = this.removeText.bind(this)
         
   }
-
+  
   componentDidMount(){
     this.inputElement.current.focus()
   }
@@ -46,16 +50,19 @@ class App extends Component{
   itemOnClick(item, index){
     return () => {
       const isComplete = item.isComplete;
-      const { todo } = this.state;
-      
+      const { todo, listFilter } = this.state;
+      let todoIndex = todo.findIndex(x => x.title === item.title)
+      todo[todoIndex].isComplete = !isComplete
+    
       this.setState({
-        todo: [
-          ...todo.slice(0, index),
+        todo: todo,
+        listFilter: [
+          ...listFilter.slice(0, index),
           {
             ...item,
             isComplete: !isComplete
           },
-          ...todo.slice(index + 1)
+          ...listFilter.slice(index + 1)
         ]
       })
     }
@@ -65,7 +72,8 @@ class App extends Component{
   onKeyEnter(event){
     if(event.keyCode === 13){
       let text = event.target.value
-      let { todo } = this.state
+      let { todo, listFilter } = this.state
+      // let listRender = listFilter.length === 0 ? todo : listFilter
       let item = {
         title: text,
         isComplete: false
@@ -75,7 +83,12 @@ class App extends Component{
         todo: [
           item,
           ...todo
+        ],
+        listFilter: [
+          item,
+          ...listFilter
         ]
+        
       })
     }
   }
@@ -91,11 +104,13 @@ class App extends Component{
   onStageClick(item){
     return () => {
       this.setState({
-        stageSelect: item
+        stageSelect: item,
+        listFilter: this.filterList(item)
       })
     }
   }
 
+  //Filter the todo list when change stage
   filterList(stageSelect){
       const { todo } = this.state
       let list = todo.filter((item) => {
@@ -116,19 +131,20 @@ class App extends Component{
         return itemFilter
       })
 
-      console.log(list)
-     
+      return list
+      
   }
 
+  //Remove text on input
   removeText(){
     this.inputElement.current.value = ''
   }
 
   render(){
-    const { todo, newItem, stage, stageSelect } = this.state
+    const { newItem, stage, stageSelect, listFilter } = this.state
     let plus = plusIcon
     let remove = removeIcon
-    // this.filterList(stageSelect)
+    
     return(
       <div className='container'>
         <p>Todos</p>
@@ -157,12 +173,12 @@ class App extends Component{
             <img alt='remove' onClick={this.removeText} src={remove} width='32px' height='32px'/>
           </div>
           {
-            todo.length && todo.map((item, index) => 
+            listFilter.length ? listFilter.map((item, index) => 
             <TodoItem key={index} 
                       item={item}
                       stageSelect={stageSelect}
                       onClick={this.itemOnClick(item, index)}
-                      />)
+                      />) : 'Nothing'
           }
         </div>
       </div>
