@@ -9,7 +9,7 @@ import remove from '../img/remove.svg'
 class Todo extends Component {
 
     render() {
-        const { item, onClick } = this.props
+        const { item, onClick, onRemove } = this.props
         let url = item.isComplete ? checkDone : checkUndone
         let extraClass = classNames({
             'Todo-extra': true
@@ -27,7 +27,7 @@ class Todo extends Component {
                     <img alt='check' onClick={onClick} src={url} width='32px' height='32px'/>
                     <p>{item.title}</p>
                 </div>
-                <img alt='remove' className={hoverText} src={remove} width='32px' height='32px'/>
+                <img alt='remove' onClick={onRemove} className={hoverText} src={remove} width='32px' height='32px'/>
             </div>
         )
     }

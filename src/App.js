@@ -39,7 +39,7 @@ class App extends Component{
     this.onStageClick = this.onStageClick.bind(this)
     this.filterList = this.filterList.bind(this)
     this.removeText = this.removeText.bind(this)
-        
+    this.onItemRemove = this.onItemRemove.bind(this)
   }
   
   componentDidMount(){
@@ -140,6 +140,23 @@ class App extends Component{
     this.inputElement.current.value = ''
   }
 
+  //Remove item on the list
+  onItemRemove(item, index){
+    return() => {
+      const { listFilter } = this.state
+      this.setState({
+        todo: [
+          ...listFilter.slice(0, index),
+          ...listFilter.slice(index + 1)
+        ],
+        listFilter: [
+          ...listFilter.slice(0, index),
+          ...listFilter.slice(index + 1)
+        ]
+      })
+    }
+  }
+
   render(){
     const { newItem, stage, stageSelect, listFilter } = this.state
     let plus = plusIcon
@@ -178,6 +195,7 @@ class App extends Component{
                       item={item}
                       stageSelect={stageSelect}
                       onClick={this.itemOnClick(item, index)}
+                      onRemove={this.onItemRemove(item, index)}
                       />) : 'Nothing'
           }
         </div>
